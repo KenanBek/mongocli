@@ -28,8 +28,8 @@ import (
 
 	"github.com/KenanBek/mongocli/pkg/cmd/colls"
 	"github.com/KenanBek/mongocli/pkg/cmd/dbs"
-	"github.com/KenanBek/mongocli/pkg/cmd/ping"
 	"github.com/KenanBek/mongocli/pkg/cmd/list"
+	"github.com/KenanBek/mongocli/pkg/cmd/ping"
 )
 
 var cfgFile string
@@ -109,7 +109,7 @@ func initConfig() {
 			os.Exit(1)
 		}
 
-		// Search config in home directory with name ".mongocli" (without extension).
+		// Search config in home directory with name "mongocli" (without extension).
 		viper.AddConfigPath(home)
 		viper.SetConfigName("mongocli")
 	}

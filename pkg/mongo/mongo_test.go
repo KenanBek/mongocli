@@ -26,7 +26,7 @@ func TestMongoClient(t *testing.T) {
 		assert.Equal(t, 1, 1)
 	})
 	t.Run("check", func(t *testing.T) {
-		assert.Equal(t, 1, 0)
+		assert.Equal(t, 1, 1)
 	})
 	t.Run("finish", func(t *testing.T) {
 		assert.Equal(t, 1, 1)

@@ -1,0 +1,22 @@
+version: '3.5'
+
+services:
+  db:
+    image: mongo:latest
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo mongo:27017/test --quiet 1
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+  app:
+    image: mongocli:latest  # tag after build
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    environment:
+      - SERVER=db
+      - PORT=27017
+    depends_on:
+      - db
+    command: ["mongocli", "ping"]
