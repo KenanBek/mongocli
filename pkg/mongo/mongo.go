@@ -80,14 +80,15 @@ func (mc *MongoClient) ListCollectionNames(databaseName string) ([]string, error
 	return mc.client.Database(databaseName).ListCollectionNames(mc.context, filter)
 }
 
+// ListDocuments PRINTS documents in a given database and collection (TODO)
 func (mc *MongoClient) ListDocuments(databaseName, collectionName string) {
-    filter := bson.D{{}}
-    collection := mc.client.Database(databaseName).Collection(collectionName)
-    cur, err := collection.Find(mc.context, filter)
-    if err != nil {
-        log.Fatal("Error on finding all the documents", err)
-    }
-    for cur.Next(mc.context) {
-        fmt.Println(cur)
-    }
+	filter := bson.D{{}}
+	collection := mc.client.Database(databaseName).Collection(collectionName)
+	cur, err := collection.Find(mc.context, filter)
+	if err != nil {
+		log.Fatal("Error on finding all the documents", err)
+	}
+	for cur.Next(mc.context) {
+		fmt.Println(cur)
+	}
 }
