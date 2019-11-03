@@ -1,3 +1,5 @@
+![Gopher with MongoDB](https://cdn.cp.adobe.io/content/2/dcx/8182b7fd-7661-4b81-8a2e-276c203ecfa3/rendition/preview.jpg/version/0/format/jpg/dimension/width/size/1200)
+
 # MongoCLI
 
 **C**ommand **L**ine **I**nterface for **Mongo**DB. **MongoCLI**.
