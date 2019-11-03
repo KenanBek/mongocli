@@ -9,7 +9,7 @@ Status: development in progress
 - Check database connection, ping: `mongocli ping`
 - List existing database names: `mongocli dbs`
 - List collection names: `mongocli colls` or `mongocli colls -d <db name>`
-- Use configuration file for default connection settings and database name: `~/mongocli.yml`
+- Use configuration file for default connection settings and database name: `~/mongocli.yml` (example configuration file included)
 - Use command line args for connection settings: `mongocli ping -s localhost -p 27017 -d config` or `mongocli ping --server localhost --port 27017 --database config`
 
 ## Usage
