@@ -6,6 +6,10 @@ GOTEST=$(GOCMD) test
 build:
 	$(GOBUILD) -o mongocli -v mongocli.go
 
+.PHONY: lint
+lint:
+	golint -set_exit_status=1 `go list ./...`
+
 .PHONY: test
 test:
 	$(GOTEST) -v ./...
