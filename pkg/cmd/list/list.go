@@ -16,7 +16,7 @@ limitations under the License.
 package list
 
 import (
-    "errors"
+	"errors"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -24,7 +24,7 @@ import (
 
 // ListDocumentsOp is exported.
 type ListDocumentsOp interface {
-    ListDocuments(databaseName, collectionName string) // (string, error)
+	ListDocuments(databaseName, collectionName string) // (string, error)
 }
 
 // ListOptions is exported.
@@ -35,22 +35,22 @@ type ListOptions struct {
 
 // NewCmdList returns an instance of List command.
 func NewCmdList(op ListDocumentsOp) *cobra.Command {
-    o := ListOptions{}
+	o := ListOptions{}
 
 	cmd := &cobra.Command{
-		Use: "list",
+		Use:   "list",
 		Short: "list documents",
-		Long: `list documents in the given collection`,
-        Args: func(cmd *cobra.Command, args []string) error {
-            if len(args) < 1 {
-                return errors.New("requires a collection name argument")
-            }
+		Long:  `list documents in the given collection`,
+		Args: func(cmd *cobra.Command, args []string) error {
+			if len(args) < 1 {
+				return errors.New("requires a collection name argument")
+			}
 
-            o.Collection = args[0]
-            return nil
-        },
+			o.Collection = args[0]
+			return nil
+		},
 		Run: func(cmd *cobra.Command, args []string) {
-            o.Fill(cmd)
+			o.Fill(cmd)
 			o.Execute(op)
 		},
 	}
@@ -65,5 +65,5 @@ func (o *ListOptions) Fill(cmd *cobra.Command) {
 
 // RunList is exported.
 func (o *ListOptions) Execute(op ListDocumentsOp) {
-    op.ListDocuments(o.Database, o.Collection)
+	op.ListDocuments(o.Database, o.Collection)
 }

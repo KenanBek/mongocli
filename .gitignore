@@ -1,3 +1,7 @@
+# IDEs
+.idea
+.code
+
 /mongocli
 
 # Binaries for programs and plugins

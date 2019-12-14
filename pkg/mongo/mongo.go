@@ -80,6 +80,13 @@ func (mc *MongoClient) ListCollectionNames(databaseName string) ([]string, error
 	return mc.client.Database(databaseName).ListCollectionNames(mc.context, filter)
 }
 
+func (mc *MongoClient) CountDocuments(db, coll string) (int64, error) {
+	filter := bson.D{{}}
+	collection := mc.client.Database(db).Collection(coll)
+
+	return collection.CountDocuments(mc.context, filter)
+}
+
 // ListDocuments PRINTS documents in a given database and collection (TODO)
 func (mc *MongoClient) ListDocuments(databaseName, collectionName string) {
 	filter := bson.D{{}}

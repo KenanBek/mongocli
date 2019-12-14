@@ -27,6 +27,7 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/KenanBek/mongocli/pkg/cmd/colls"
+	"github.com/KenanBek/mongocli/pkg/cmd/count"
 	"github.com/KenanBek/mongocli/pkg/cmd/dbs"
 	"github.com/KenanBek/mongocli/pkg/cmd/list"
 	"github.com/KenanBek/mongocli/pkg/cmd/ping"
@@ -75,6 +76,7 @@ func Execute() {
 	rootCmd.AddCommand(dbs.NewCmdDbs(mc))
 	rootCmd.AddCommand(colls.NewCmdColls(mc))
 	rootCmd.AddCommand(list.NewCmdList(mc))
+	rootCmd.AddCommand(count.NewCmdCount(mc))
 
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)

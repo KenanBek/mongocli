@@ -15,8 +15,6 @@ limitations under the License.
 */
 package dbs
 
-
-
 import (
 	"fmt"
 	"os"
@@ -26,7 +24,7 @@ import (
 )
 
 type ListDatabaseNamesOp interface {
-   ListDatabaseNames() ([]string, error)
+	ListDatabaseNames() ([]string, error)
 }
 
 // NewCmdDbs returns an instance of Dbs command

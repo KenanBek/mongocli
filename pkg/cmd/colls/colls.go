@@ -26,7 +26,7 @@ import (
 
 // ListCollectionNamesOp.
 type ListCollectionNamesOp interface {
-    ListCollectionNames(databaseName string) ([]string, error)
+	ListCollectionNames(databaseName string) ([]string, error)
 }
 
 // CollsOptions is exported.
