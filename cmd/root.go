@@ -18,7 +18,6 @@ import (
 	"github.com/KenanBek/mongocli/pkg/cmd/ping"
 )
 
-var cfgFile string
 var ro RootOptions
 
 // rootCmd represents the base command when called without any subcommands
@@ -40,6 +39,7 @@ and then create a document in collection col1.`,
 
 // RootOptions is exported.
 type RootOptions struct {
+	config   string
 	server   string
 	port     int
 	database string
@@ -50,6 +50,7 @@ func Execute() {
 	// Prepare configuration variables.
 	initConfig()
 
+	ro.config = viper.GetString("config")
 	ro.server = viper.GetString("server")
 	ro.port = viper.GetInt("port")
 
@@ -70,12 +71,12 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/mongocli.yml)")
-
+	rootCmd.PersistentFlags().StringVar(&ro.config, "config", "", "config file (default is $HOME/mongocli.yml)")
 	rootCmd.PersistentFlags().StringVarP(&ro.server, "server", "s", "localhost", "host name")
 	rootCmd.PersistentFlags().IntVarP(&ro.port, "port", "p", 27017, "port number")
 	rootCmd.PersistentFlags().StringVarP(&ro.database, "database", "d", "", "database name")
 
+	viper.BindPFlag("config", rootCmd.PersistentFlags().Lookup("config"))
 	viper.BindPFlag("server", rootCmd.PersistentFlags().Lookup("server"))
 	viper.BindPFlag("port", rootCmd.PersistentFlags().Lookup("port"))
 	viper.BindPFlag("database", rootCmd.PersistentFlags().Lookup("database"))
@@ -85,9 +86,9 @@ func init() {
 func initConfig() {
 	viper.SetConfigType("yaml")
 
-	if cfgFile != "" {
+	if ro.config != "" {
 		// Use config file from the flag.
-		viper.SetConfigFile(cfgFile)
+		viper.SetConfigFile(ro.config)
 	} else {
 		// Find home directory.
 		home, err := homedir.Dir()
@@ -108,6 +109,5 @@ func initConfig() {
 		fmt.Println("Using config file:", viper.ConfigFileUsed())
 	} else {
 		fmt.Println(err)
-		os.Exit(1)
 	}
 }
