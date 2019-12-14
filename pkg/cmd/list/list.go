@@ -17,14 +17,16 @@ package list
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"go.mongodb.org/mongo-driver/bson"
 )
 
 // ListDocumentsOp is exported.
 type ListDocumentsOp interface {
-	ListDocuments(databaseName, collectionName string) // (string, error)
+	ListDocuments(db, coll string) ([]bson.M, []error)
 }
 
 // ListOptions is exported.
@@ -63,7 +65,15 @@ func (o *ListOptions) Fill(cmd *cobra.Command) {
 	o.Database = viper.GetString("database")
 }
 
-// RunList is exported.
+// Execute is exported.
 func (o *ListOptions) Execute(op ListDocumentsOp) {
-	op.ListDocuments(o.Database, o.Collection)
+	docs, errs := op.ListDocuments(o.Database, o.Collection)
+
+	for _, err := range errs {
+		fmt.Println(err)
+	}
+
+	for _, doc := range docs {
+		fmt.Println(doc)
+	}
 }

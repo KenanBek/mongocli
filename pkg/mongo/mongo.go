@@ -80,6 +80,7 @@ func (mc *MongoClient) ListCollectionNames(databaseName string) ([]string, error
 	return mc.client.Database(databaseName).ListCollectionNames(mc.context, filter)
 }
 
+// CountDocuments return number of documents in the collection.
 func (mc *MongoClient) CountDocuments(db, coll string) (int64, error) {
 	filter := bson.D{{}}
 	collection := mc.client.Database(db).Collection(coll)
@@ -87,15 +88,33 @@ func (mc *MongoClient) CountDocuments(db, coll string) (int64, error) {
 	return collection.CountDocuments(mc.context, filter)
 }
 
-// ListDocuments PRINTS documents in a given database and collection (TODO)
-func (mc *MongoClient) ListDocuments(databaseName, collectionName string) {
+// ListDocuments return list of decoded documents and errors during the process.
+func (mc *MongoClient) ListDocuments(databaseName, collectionName string) ([]bson.M, []error) {
+	var docs []bson.M
+	var errs []error
+
 	filter := bson.D{{}}
 	collection := mc.client.Database(databaseName).Collection(collectionName)
+
 	cur, err := collection.Find(mc.context, filter)
 	if err != nil {
+
 		log.Fatal("Error on finding all the documents", err)
 	}
+
 	for cur.Next(mc.context) {
-		fmt.Println(cur)
+		var doc bson.M
+		err := cur.Decode(&doc)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			docs = append(docs, doc)
+		}
 	}
+
+	if err := cur.Err(); err != nil {
+		errs = append(errs, err)
+	}
+
+	return docs, errs
 }
