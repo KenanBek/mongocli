@@ -18,7 +18,7 @@ Status: development in progress
 
 ## Usage
 
-For now MongoCLI distributed only via GitHub.
+For now, MongoCLI distributed only via GitHub.
 
 1. Clone repository
 
@@ -31,8 +31,9 @@ git clone https://github.com/KenanBek/mongocli.git
 ```
 make test
 make test/e2e
-go build mongocli.go
+make build
 ```
+
 Note: test coverage is not full.
 
 3. Run Mongo with Docker
